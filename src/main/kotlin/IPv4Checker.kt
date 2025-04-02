@@ -1,31 +1,34 @@
 package org.example
 
-class IPv4Checker{
-    fun isValidIPv4(ip: String?): Boolean {
+fun isValidIPv4(ip: String): Boolean {
+    // Check if string is empty
+    if (ip.isEmpty()) return false
 
-        // Null or empty check
-        if (ip.isNullOrBlank()) return false
+    // Split the string by dots
+    val segments = ip.split(".")
 
-        // Trim whitespace
-        val trimmedIp = ip.trim()
+    // Check if we have exactly 4 segments
+    if (segments.size != 4) return false
 
-        // Check for exactly 3 dots
-        val segments = trimmedIp.split(".")
-        if (segments.size != 4) return false
+    // Check each segment
+    for (segment in segments) {
+        // Check if segment is empty
+        if (segment.isEmpty()) return false
 
-        // Validate each segment
-        for (segment in segments) {
-            // Check if segment is empty or contains non-numeric characters
-            if (segment.isEmpty() || !segment.all { it.isDigit() }) return false
+        // Check for invalid characters
+        if (!segment.all { it.isDigit() }) return false
 
-            // Check for leading zeros
-            if (segment.length > 1 && segment.startsWith('0')) return false
+        // Check for leading zeros
+        if (segment.length > 1 && segment[0] == '0') return false
 
-            // Convert to integer and check range
-            val value = segment.toIntOrNull() ?: return false
+        // Convert to integer and check range
+        try {
+            val value = segment.toInt()
             if (value < 0 || value > 255) return false
+        } catch (e: NumberFormatException) {
+            return false
         }
-
-        return true
     }
+
+    return true
 }
