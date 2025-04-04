@@ -1,5 +1,3 @@
-package org.example
-
 fun isValidIPv4(ip: String): Boolean {
     // Check if string is empty
     if (ip.isEmpty()) return false
@@ -22,12 +20,8 @@ fun isValidIPv4(ip: String): Boolean {
         if (segment.length > 1 && segment[0] == '0') return false
 
         // Convert to integer and check range
-        try {
-            val value = segment.toInt()
-            if (value < 0 || value > 255) return false
-        } catch (e: NumberFormatException) {
-            return false
-        }
+        val value = segment.toInt()
+        if (value < 0 || value > 255) return false
     }
 
     return true

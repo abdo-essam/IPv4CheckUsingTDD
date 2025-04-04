@@ -1,5 +1,3 @@
-import org.example.isValidIPv4
-
 fun main() {
     val testSuite = IPv4CheckerTest()
     testSuite.runAllTests()
