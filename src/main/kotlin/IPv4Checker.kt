@@ -1,3 +1,4 @@
+
 fun isValidIPv4(ip: String): Boolean {
     // Check if string is empty
     if (ip.isEmpty()) return false
@@ -17,11 +18,11 @@ fun isValidIPv4(ip: String): Boolean {
         if (!segment.all { it.isDigit() }) return false
 
         // Check for leading zeros
-        if (segment.length > 1 && segment[0] == '0') return false
+        if (segment.length > 1 && segment.first() == '0') return false
 
         // Convert to integer and check range
         val value = segment.toInt()
-        if (value < 0 || value > 255) return false
+        if (value !in 0..255) return false
     }
 
     return true
